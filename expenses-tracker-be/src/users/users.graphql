@@ -1,0 +1,23 @@
+type User {
+  id: String!
+  email: String!
+  password: String!
+  hashedRt: String
+}
+
+type Tokens {
+  access_token: String!
+  refresh_token: String!
+}
+
+input UserInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  signup(userInput: UserInput!): Tokens!
+  login(userInput: UserInput!): Tokens!
+  logout: Boolean!
+  refresh: Tokens!
+}

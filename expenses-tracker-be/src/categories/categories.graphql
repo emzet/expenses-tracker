@@ -1,0 +1,18 @@
+type Category {
+  id: String!
+  title: String!
+  authorId: String!
+}
+
+input CreateCategoryInput {
+  title: String!
+}
+
+type Query {
+  categories: [Category]!
+}
+
+type Mutation {
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  removeCategory(id: String!): Category
+}

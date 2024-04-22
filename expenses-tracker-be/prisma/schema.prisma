@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String   @id @default(uuid())
+  email               String   @unique
+  password            String
+  hashedRt            String?
+  categories          Category[]
+  transactionRecords  TransactionRecord[]
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  author      User @relation(fields: [authorId], references: [id])
+  authorId    String
+  records     TransactionRecord[]
+  shared      Boolean?
+  title       String   @unique
+}
+
+enum TransactionType {
+  EXPENSE
+  INCOME
+}
+
+model TransactionRecord {
+  id          String  @id @default(uuid())
+  amount      Int
+  author      User @relation(fields: [authorId], references: [id])
+  authorId    String
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  date        String
+  description String?
+  shared      Boolean?
+  title       String
+  type        TransactionType
+}

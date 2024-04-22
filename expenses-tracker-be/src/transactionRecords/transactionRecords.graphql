@@ -1,0 +1,33 @@
+enum TransactionType {
+  EXPENSE
+  INCOME
+}
+
+type TransactionRecord {
+  id: String!
+  amount: Int!
+  authorId: String!
+  categoryId: String!
+  date: String!
+  description: String
+  title: String!
+  type: TransactionType
+}
+
+input CreateTransactionRecordInput {
+  amount: Int!
+  categoryId: String!
+  date: String!
+  description: String
+  title: String!
+  type: TransactionType!
+}
+
+type Query {
+  transactionRecords: [TransactionRecord]!
+}
+
+type Mutation {
+  createTransactionRecord(createTransactionRecordInput: CreateTransactionRecordInput!): TransactionRecord!
+  removeTransactionRecord(id: String!): TransactionRecord
+}
