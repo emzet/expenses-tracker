@@ -151,6 +151,9 @@
         },
         "NO_CATEGORIES": "Nenašli sa žiadne kategórie. Najprv pridajte ľubovoľnú kategóriu."
       },
+      "SEARCH": {
+        "PLACEHOLDER": "Hľadať"
+      },
       "TABLE": {
         "COLUMNS": {
           "ACTIONS": "Možnosti",

@@ -1,0 +1,95 @@
+@if ({
+  column: currentSortColumn$ | async,
+  direction: currentSortDirection$ | async
+}; as sortObs) {
+  <table
+    #table
+    cdk-table
+    fixedLayout
+    [dataSource]="(currentPageData$ | async)!">
+    @for (column of columns; track $index) {
+      <ng-container cdkColumnDef="{{ column }}">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          (click)="onHeaderCellClick(sortObs.column!, sortObs.direction!, column)">
+          <span>
+            {{ ('MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.' + (column | uppercase)) | transloco }}
+          </span>
+          @if (sortColumns.includes(column) && sortObs.column === column) {
+            <span>
+              {{ sortObs.direction === 'ASC' ? '&uarr;' : '&darr;' }}
+            </span>
+          }
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let element">
+          {{ element.viewData[column] || element.rawData[column] || element[column] }}
+        </td>
+      </ng-container>
+    }
+    @if (rowActions.length) {
+      <ng-container cdkColumnDef="actions">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef>
+          {{ 'MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.ACTIONS' | transloco }}
+        </th>
+        <td
+          cdk-cell
+          *cdkCellDef="let element">
+          <div class="action-buttons">
+            @if (rowActions.includes('edit')) {
+              <button
+                nbButton
+                status="warning"
+                [disabled]="isDialogOpened"
+                (click)="elementEdit.emit(element.rawData || element)">
+                <nb-icon
+                  icon="edit-outline">
+                </nb-icon>
+              </button>
+            }
+            @if (rowActions.includes('remove')) {
+              <button
+                nbButton
+                status="danger"
+                [disabled]="isDialogOpened"
+                (click)="elementRemove.emit(element.rawData || element)">
+                <nb-icon
+                  icon="trash-outline">
+                </nb-icon>
+              </button>
+            }
+          </div>
+        </td>
+      </ng-container>
+    }
+    <tr
+      cdk-header-row
+      *cdkHeaderRowDef="rowActions.length ? columns.concat('actions') : columns">
+    </tr>
+    <tr
+      cdk-row
+      [ngClass]="(row.rawData || row.viewData || row) | rowClasses:rowColumns"
+      *cdkRowDef="let row; columns: rowActions.length ? columns.concat('actions') : columns;">
+    </tr>
+    <tr *cdkNoDataRow>
+      <td
+        [attr.colspan]="rowActions.length ? columns.concat('actions').length : columns.length">
+        {{ 'MANAGEMENT.TRANSACTIONS_PAGE.TABLE.NO_DATA' | transloco }}
+      </td>
+  </table>
+}
+@if (sortedData$ | async; as sortedData) {
+  @if (sortedData.length > pagerRowsPerPage) {
+    <expenses-tracker-data-table-pagination
+      [dataSize]="sortedData.length"
+      [rowsPerPage]="pagerRowsPerPage"
+      [startingPage]="pagerStartingPage"
+      [visibleCount]="pagerVisibleCount"
+      (pageClick)="onPageClick($event)">
+    </expenses-tracker-data-table-pagination>
+  }
+}

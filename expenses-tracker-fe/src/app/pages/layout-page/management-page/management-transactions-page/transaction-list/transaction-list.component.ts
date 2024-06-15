@@ -1,15 +1,20 @@
 import { format } from 'date-fns';
-import { Observable, map } from 'rxjs';
+import { Params } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { NbButtonModule, NbIconModule } from '@nebular/theme';
-import { Translation, TranslocoService } from '@jsverse/transloco';
-import { Angular2SmartTableModule, LocalDataSource, Row, Settings } from 'angular2-smart-table';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { BehaviorSubject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { NbButtonModule, NbIconModule, NbInputModule, NbSpinnerModule } from '@nebular/theme';
+import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject } from '@angular/core';
 
-import { translocoLangChanged$ } from '@utils/transloco.utils';
 import { DATE_FORMAT } from '@app/constants/date-time';
+import { QUERY_PARAMS_KEYS } from '@app/constants/query-parameters';
 
-import { Category, TRANSACTION_TYPES, Transaction } from '@store/app.models';
+import { Category, Transaction } from '@store/app.models';
+
+import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
+import { DataTableRowActions, DataTableRowData, DataTableSortQueryParams } from '@components/data-table/data-table.models';
 
 
 
@@ -20,113 +25,110 @@ import { Category, TRANSACTION_TYPES, Transaction } from '@store/app.models';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
+    // components
+    DataTableComponent,
     // modules
-    Angular2SmartTableModule,
     NbButtonModule,
     NbIconModule,
+    NbInputModule,
+    NbSpinnerModule,
+    ReactiveFormsModule,
     // pipes
-    AsyncPipe
+    AsyncPipe,
+    TranslocoPipe
   ]
 })
 export class TransactionListComponent implements OnChanges {
+  readonly #destroyRef = inject(DestroyRef);
   readonly #translocoService = inject(TranslocoService);
-  readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
+  @Input() queryParams: Params = {};
   @Input({ required: true }) isLoading = false;
+  @Input({ required: true }) isDialogOpened = false;
   @Input({ required: true }) categories: ReadonlyArray<Category> = [];
   @Input({ required: true }) transactions: ReadonlyArray<Transaction> = [];
 
+  @Output() readonly reload = new EventEmitter<void>();
+  @Output() readonly transactionAdd = new EventEmitter<void>();
   @Output() readonly transactionEdit = new EventEmitter<Transaction>();
   @Output() readonly transactionRemove = new EventEmitter<Transaction>();
+  @Output() readonly pageChange = new EventEmitter<number>();
+  @Output() readonly sortChange = new EventEmitter<DataTableSortQueryParams>();
+  @Output() readonly searchChange = new EventEmitter<string>();
 
-  source: LocalDataSource = new LocalDataSource();
+  readonly QUERY_PARAMS_KEYS = QUERY_PARAMS_KEYS;
+  readonly #data$ = new BehaviorSubject<ReadonlyArray<DataTableRowData<Transaction, any>>>([]);
+  readonly data$ = this.#data$.asObservable();
 
-  settings$: Observable<Settings> = translocoLangChanged$(this.#translocoService).pipe(
-    map((translation: Translation) => ({
-      mode: 'external',
-      noDataMessage: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.NO_DATA'],
-      rowClassFunction: (row: Row) => (row.getData() as Transaction).type.toLowerCase().concat('-row'),
-      actions: {
-        add: false,
-        position: 'right',
-        columnTitle: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.ACTIONS']
-      },
-      edit: {
-        editButtonContent: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.ACTION_BUTTONS.EDIT']
-      },
-      delete: {
-        deleteButtonContent: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.ACTION_BUTTONS.DELETE']
-      },
-      columns: {
-        title: {
-          title: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.TITLE']
-        },
-        amount: {
-          classContent: 'text-right',
-          title: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.AMOUNT'],
-          valuePrepareFunction: (rawValue: number) => rawValue.toLocaleString(this.#translocoService.getActiveLang())
-        },
-        date: {
-          classContent: 'text-right',
-          title: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.DATE'],
-          valuePrepareFunction: (rawValue: Date) => format(new Date(rawValue), DATE_FORMAT)
-        },
-        type: {
-          title: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.TYPE'],
-          valuePrepareFunction: (rawValue: string) => translation[`ENUMS.TRANSACTION_TYPES.${rawValue}`],
-          filter: {
-            type: 'list',
-            config: {
-              selectText: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.SELECT_PLACEHOLDER'],
-              list: TRANSACTION_TYPES.map(value => ({
-                value,
-                title: translation[`ENUMS.TRANSACTION_TYPES.${value}`]
-              }))
-            }
-          }
-        },
-        categoryId: {
-          title: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.CATEGORY'],
-          valuePrepareFunction: (rawValue: string) => {
-            const { title, isDefault } = this.categories.find(({ id }) => rawValue === id) || {}
+  searchFormControl = new FormControl<string>('', { nonNullable: true });
 
-            return isDefault
-              ? translation[`ENUMS.CATEGORIES.${title!.replace(/ /g, '_').toUpperCase()}`]
-              : title || 'N/A'
-          }
-        },
-        description: {
-          title: translation['MANAGEMENT.TRANSACTIONS_PAGE.TABLE.COLUMNS.DESCRIPTION']
+  ngOnInit(): void {
+    this.searchFormControl.setValue(this.queryParams[QUERY_PARAMS_KEYS.SEARCH] || '');
+
+    this.searchFormControl.valueChanges
+      .pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.#destroyRef)
+      )
+      .subscribe({
+        next: (value: string) => {
+          this.#data$.next(this.#prepareDataForDataTable(this.categories, this.transactions, value));
+          this.searchChange.emit(value)
         }
-      }
-    }))
-  );
+      });
+  }
 
-  ngOnChanges({ transactions }: SimpleChanges): void {
-    if (!transactions) {
+  ngOnChanges({ isLoading }: SimpleChanges): void {
+    if (isLoading?.currentValue) {
+      this.searchFormControl.disable();
+
       return;
     }
 
-    this.#updateSource(transactions.currentValue);
+    this.searchFormControl.enable();
+
+    this.#data$.next(this.#prepareDataForDataTable(this.categories, this.transactions, this.searchFormControl.value));
   }
 
-  onEditButtonClick({ data }: any): void {
-    this.transactionEdit.emit(data);
-  }
+  readonly tableColumns: ReadonlyArray<string> = [
+    'title',
+    'amount',
+    'date',
+    'type',
+    'category',
+    'description'
+  ] as const;
 
-  onDeleteButtonClick({ data }: any): void {
-    this.transactionRemove.emit(data);
-  }
+  readonly tableSortColumns: ReadonlyArray<string> = [
+    'title',
+    'amount',
+    'date',
+    'type',
+    'category',
+    'description'
+  ] as const;
 
-  #updateSource(transactions: ReadonlyArray<Transaction>): void {
-    const currentSort = this.source.getSort();
-    const currentFilter = this.source.getFilter();
+  readonly tableRowActions: ReadonlyArray<DataTableRowActions> = [
+    'edit',
+    'remove'
+  ] as const;
 
-    this.source.load(transactions as Array<Transaction>).then(() => {
-      this.source.setSort(currentSort);
-      this.source.setFilter(currentFilter);
+  readonly tableRowColumns: ReadonlyArray<string> = [
+    'type'
+  ];
 
-      this.#changeDetectorRef.detectChanges(); // NOTE: need to manually refresh view
-    });
+  #prepareDataForDataTable(categories: ReadonlyArray<Category>, transactions: ReadonlyArray<Transaction>, searchValue: string): ReadonlyArray<DataTableRowData<Transaction, any>> {
+    return transactions
+      .filter(({ title }: Transaction) => title.toLowerCase().includes(searchValue.toLowerCase()))
+      .map((transaction: Transaction) => ({
+        rawData: transaction,
+        viewData: {
+          amount: transaction.amount.toLocaleString(this.#translocoService.getActiveLang()),
+          date: format(new Date(transaction.date), DATE_FORMAT),
+          type: transaction.type,
+          category: categories.find(({ id }) => id === transaction.categoryId)?.title,
+        }
+      }))
   }
 }

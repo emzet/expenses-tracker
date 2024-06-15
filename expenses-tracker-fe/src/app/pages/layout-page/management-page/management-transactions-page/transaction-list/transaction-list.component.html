@@ -1,6 +1,49 @@
-<angular2-smart-table
-  [source]="source"
-  [settings]="(settings$ | async)!"
-  (edit)="onEditButtonClick($event)"
-  (delete)="onDeleteButtonClick($event)">
-</angular2-smart-table>
+<div class="actions margin">
+  <input
+    nbInput
+    type="text"
+    [formControl]="searchFormControl"
+    [placeholder]="'MANAGEMENT.TRANSACTIONS_PAGE.SEARCH.PLACEHOLDER' | transloco">
+  <div class="actions">
+    <button
+      nbButton
+      status="success"
+      [disabled]="isDialogOpened"
+      (click)="transactionAdd.emit()">
+      <nb-icon
+        icon="plus-outline">
+      </nb-icon>
+      {{ 'MANAGEMENT.TRANSACTIONS_PAGE.ACTION_BUTTONS.ADD' | transloco }}
+    </button>
+    <button
+      nbButton
+      status="basic"
+      [disabled]="isLoading"
+      (click)="reload.emit()">
+      <nb-icon
+        icon="refresh-outline">
+      </nb-icon>
+      {{ 'MANAGEMENT.TRANSACTIONS_PAGE.ACTION_BUTTONS.RELOAD' | transloco }}
+    </button>
+  </div>
+</div>
+
+@if (data$ | async; as data) {
+  <expenses-tracker-data-table
+    [nbSpinner]="isLoading"
+    [data]="data"
+    [columns]="tableColumns"
+    [rowColumns]="tableRowColumns"
+    [rowActions]="tableRowActions"
+    [sortColumns]="tableSortColumns"
+    [pagerRowsPerPage]="7"
+    [pagerStartingPage]="queryParams[QUERY_PARAMS_KEYS.PAGE] || 0"
+    [sortColumn]="queryParams[QUERY_PARAMS_KEYS.SORT_COLUMN] || ''"
+    [sortDirection]="queryParams[QUERY_PARAMS_KEYS.SORT_DIRECTION] || 'ASC'"
+    [isDialogOpened]="isDialogOpened"
+    (elementEdit)="transactionEdit.emit($event)"
+    (elementRemove)="transactionRemove.emit($event)"
+    (pageChange)="pageChange.emit($event)"
+    (sortChange)="sortChange.emit($event)">
+  </expenses-tracker-data-table>
+}

@@ -43,23 +43,7 @@ export class CategoryListComponent {
   defaultCategories: ReadonlyArray<Category> = [];
 
   @Output() readonly reload = new EventEmitter<void>();
-  @Output() readonly categoryAdd = new EventEmitter<Category>();
+  @Output() readonly categoryAdd = new EventEmitter<void>();
   @Output() readonly categoryEdit = new EventEmitter<Category>();
   @Output() readonly categoryRemove = new EventEmitter<Category>();
-
-  onReloadButtonClick(): void {
-    this.reload.emit();
-  }
-
-  onAddButtonClick(): void {
-    this.categoryAdd.emit()
-  }
-
-  onEditIconClick(category: Category): void {
-    this.categoryEdit.emit(category)
-  }
-
-  onRemoveIconClick(category: Category): void {
-    this.categoryRemove.emit(category);
-  }
 }

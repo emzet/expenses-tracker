@@ -1,11 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Select, Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
-import { ActivatedRoute } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { ActivatedRoute, Params } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
 import { BehaviorSubject, Observable, first, map } from 'rxjs';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NbActionsModule, NbButtonModule, NbDialogService, NbIconModule } from '@nebular/theme';
 
 import { QUERY_PARAMS_KEYS, QUERY_PARAMS_VALUES } from '@app/constants/query-parameters';
 
@@ -29,13 +28,8 @@ import { CategoryFormDialogComponent } from './category-form-dialog/category-for
   imports: [
     // components
     CategoryListComponent,
-    // modules
-    NbActionsModule,
-    NbButtonModule,
-    NbIconModule,
     // pipes
-    AsyncPipe,
-    TranslocoPipe
+    AsyncPipe
   ]
 })
 export class ManagementCategoriesPageComponent {
@@ -79,7 +73,9 @@ export class ManagementCategoriesPageComponent {
   onCategoryAdd(categories: ReadonlyArray<Category>): void {
     this.#anyDialogOpened$.next(true);
 
-    this.#addIdToUrl();
+    this.#updateQueryParams({
+      [QUERY_PARAMS_KEYS.ID]: QUERY_PARAMS_VALUES.NEW
+    });
 
     this.#dialogService
       .open(CategoryFormDialogComponent, {
@@ -92,7 +88,9 @@ export class ManagementCategoriesPageComponent {
         next: (categoryDto: CategoryDto) => {
           this.#anyDialogOpened$.next(false);
 
-          this.#removeIdFromUrl();
+          this.#updateQueryParams({
+            [QUERY_PARAMS_KEYS.ID]: null
+          });
 
           if (categoryDto) {
             this.#store.dispatch(new CreateCategory(categoryDto))
@@ -108,7 +106,9 @@ export class ManagementCategoriesPageComponent {
 
     this.#anyDialogOpened$.next(true);
 
-    this.#addIdToUrl(id);
+    this.#updateQueryParams({
+      [QUERY_PARAMS_KEYS.ID]: id
+    });
 
     this.#dialogService
       .open(CategoryFormDialogComponent, {
@@ -122,7 +122,9 @@ export class ManagementCategoriesPageComponent {
         next: (categoryDto: CategoryDto) => {
           this.#anyDialogOpened$.next(false);
 
-          this.#removeIdFromUrl();
+          this.#updateQueryParams({
+            [QUERY_PARAMS_KEYS.ID]: null
+          });
 
           if (categoryDto) {
             this.#store.dispatch(new UpdateCategory(id, categoryDto));
@@ -160,15 +162,10 @@ export class ManagementCategoriesPageComponent {
       });
   }
 
-  #addIdToUrl(value: string = QUERY_PARAMS_VALUES.NEW): void {
-    this.#store.dispatch(new Navigate([], { [QUERY_PARAMS_KEYS.ID]: value }, {
-      relativeTo: this.#activatedRoute,
-      replaceUrl: true
-    }));
-  }
-
-  #removeIdFromUrl(): void {
-    this.#store.dispatch(new Navigate([], {}, {
+  #updateQueryParams(queryParams: Params): void {
+    this.#store.dispatch(new Navigate([], queryParams, {
+      preserveFragment: true,
+      queryParamsHandling: 'merge',
       relativeTo: this.#activatedRoute,
       replaceUrl: true
     }));
