@@ -35,11 +35,30 @@ export class TransactionRecordsDao {
     });
   }
 
+  update(id: string, transactionRecordDto: TransactionRecordDto) {
+    return this.prisma.transactionRecord.update({
+      where: {
+        id,
+      },
+      data: {
+        ...transactionRecordDto,
+      },
+    });
+  }
+
   findOne(id: string) {
-    return this.prisma.transactionRecord.findUnique({ where: { id } });
+    return this.prisma.transactionRecord.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
   remove(id: string) {
-    return this.prisma.transactionRecord.delete({ where: { id } });
+    return this.prisma.transactionRecord.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

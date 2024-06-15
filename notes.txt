@@ -1,0 +1,22 @@
+PREREQUISITES
+--------------
+Docker: 26.1.4
+Node.js: 20.14.0
+npm: 10.8.1
+
+DB
+--
+docker run --name postgres -e POSTGRES_PASSWORD=mypassword -e POSTGRES_DB=mydbname -e POSTGRES_USER=myuser -p 5432:5432 -d postgres
+
+BE
+--
+npm ci
+.env_example -> .env
+npx prisma migrate dev --name "init"
+npm run prisma:seed
+npm run start
+
+FE
+--
+npm ci
+npm run start

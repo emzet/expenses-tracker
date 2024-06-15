@@ -1,0 +1,17 @@
+:host {
+  display: block;
+
+  nb-layout-header {
+    a {
+      text-decoration: none;
+    }
+
+    .title {
+      margin: 0;
+    }
+
+    ::ng-deep nav {
+      justify-content: space-between;
+    }
+  }
+}

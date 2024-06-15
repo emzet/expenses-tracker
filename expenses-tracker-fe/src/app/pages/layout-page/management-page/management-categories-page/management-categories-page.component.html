@@ -1,0 +1,11 @@
+@if (categories$ | async; as categories) {
+  <expenses-tracker-category-list
+    [isLoading]="categories.loader"
+    [categories]="categories.data || []"
+    [isDialogOpened]="!!(anyDialogOpened$ | async)"
+    (reload)="onReloadButtonClick()"
+    (categoryAdd)="onCategoryAdd(categories.data || [])"
+    (categoryEdit)="onCategoryEdit(categories.data || [], $event)"
+    (categoryRemove)="onCategoryRemove($event)">
+  </expenses-tracker-category-list>
+}

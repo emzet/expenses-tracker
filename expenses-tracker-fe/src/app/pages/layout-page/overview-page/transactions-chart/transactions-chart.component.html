@@ -1,0 +1,65 @@
+<nb-card [size]="cardSize">
+  <nb-card-header>
+    <h6 class="title">
+      {{ 'OVERVIEW_PAGE.TRANSACTIONS_CHART.TITLES.' + (metric | uppercase) | transloco }}
+    </h6>
+    <div class="filter">
+      @if (years.length) {
+        <nb-select
+          [formControl]="yearFormControl">
+          <nb-option [value]="NO_FILTER_VALUE">
+            {{ 'OVERVIEW_PAGE.TRANSACTIONS_CHART.YEAR_FILTER.' + NO_FILTER_VALUE | transloco }}
+          </nb-option>
+          @for (year of years; track $index) {
+            <nb-option [value]="year">
+              {{ year }}
+            </nb-option>
+          }
+        </nb-select>
+        <nb-select
+          [formControl]="monthFormControl">
+          <nb-option [value]="NO_FILTER_VALUE">
+            {{ 'OVERVIEW_PAGE.TRANSACTIONS_CHART.MONTH_FILTER.' + NO_FILTER_VALUE | transloco }}
+          </nb-option>
+          @for (monthName of months$ | async; let index = $index; track index;) {
+            <nb-option [value]="index">
+              {{ monthName }}
+            </nb-option>
+          }
+        </nb-select>
+      }
+    </div>
+  </nb-card-header>
+  <nb-card-body
+    [nbSpinner]="isLoading"
+    [ngClass]="{
+      empty: !isLoading && !transactions.length
+    }">
+    @if (!isLoading) {
+      @if (transactions.length) {
+        <canvas
+          baseChart
+          [type]="CHART_TYPE"
+          [data]="(chartData$ | async)!"
+          [options]="chartOptions">
+        </canvas>
+      }
+      @else {
+        <div class="text-center">
+          <p>
+            <strong>
+              {{ 'OVERVIEW_PAGE.TRANSACTIONS_CHART.NO_TRANSACTIONS' | transloco }}
+            </strong>
+          </p>
+          <button
+            nbButton
+            status="success"
+            [routerLink]="[TRANSACTIONS_LINK]"
+            [queryParams]="QUERY_PARAMS">
+            {{ 'OVERVIEW_PAGE.TRANSACTIONS_CHART.BUTTONS.ADD' | transloco }}
+          </button>
+        </div>
+      }
+    }
+  </nb-card-body>
+</nb-card>

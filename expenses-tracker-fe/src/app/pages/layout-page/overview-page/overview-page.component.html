@@ -1,0 +1,39 @@
+@if ({ categories: categories$ | async, transactions: transactions$ | async }; as obs) {
+  @if (obs.categories && obs.transactions) {
+    <div class="row">
+      <expenses-tracker-transactions-chart
+        metric="avg"
+        cardSize="small"
+        [transactionTypes]="TRANSACTION_TYPES"
+        [categories]="obs.categories.data || []"
+        [transactions]="obs.transactions.data || []"
+        [isLoading]="obs.categories.loader || obs.transactions.loader">
+      </expenses-tracker-transactions-chart>
+      <expenses-tracker-transactions-chart
+        metric="sum"
+        cardSize="small"
+        [transactionTypes]="TRANSACTION_TYPES"
+        [categories]="obs.categories.data || []"
+        [transactions]="obs.transactions.data || []"
+        [isLoading]="obs.categories.loader || obs.transactions.loader">
+      </expenses-tracker-transactions-chart>
+    </div>
+    <div class="row">
+      <expenses-tracker-transactions-chart
+        metric="count"
+        cardSize="small"
+        [transactionTypes]="TRANSACTION_TYPES"
+        [categories]="obs.categories.data || []"
+        [transactions]="obs.transactions.data || []"
+        [isLoading]="obs.categories.loader || obs.transactions.loader">
+      </expenses-tracker-transactions-chart>
+      <expenses-tracker-categories-chart
+        cardSize="small"
+        [transactionTypes]="TRANSACTION_TYPES"
+        [categories]="obs.categories.data || []"
+        [transactions]="obs.transactions.data || []"
+        [isLoading]="obs.categories.loader || obs.transactions.loader">
+      </expenses-tracker-categories-chart>
+    </div>
+  }
+}

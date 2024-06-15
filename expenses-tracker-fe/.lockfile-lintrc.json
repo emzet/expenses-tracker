@@ -1,0 +1,18 @@
+{
+  "allowedHosts": [
+    "npm"
+  ],
+  "allowed-package-name-aliases": [
+    "string-width-cjs:string-width",
+    "strip-ansi-cjs:strip-ansi",
+    "wrap-ansi-cjs:wrap-ansi"
+  ],
+  "allowedSchemes": [
+    "https:"
+  ],
+  "emptyHostname": false,
+  "path": "package-lock.json",
+  "type": "npm",
+  "validateIntegritySha": true,
+  "validatePackageNames": true
+}

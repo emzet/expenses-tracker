@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-body>
+    <div [innerHTML]="isTranslatable ? (mainText | transloco) : mainText"></div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button
+      nbButton
+      [status]="confirmButtonStatus"
+      (click)="onAnyButtonClick()">
+      {{ confirmButtonText | transloco }}
+    </button>
+  </nb-card-footer>
+</nb-card>

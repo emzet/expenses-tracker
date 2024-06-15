@@ -1,0 +1,118 @@
+<nb-flip-card>
+  <nb-card-front>
+    <nb-card [size]="cardSize">
+      <nb-card-header>
+        <h6 class="title">
+          {{ 'OVERVIEW_PAGE.CATEGORIES_CHART.TITLES.SUM' | transloco }}
+        </h6>
+      </nb-card-header>
+      <nb-card-body
+        [nbSpinner]="isLoading"
+        [ngClass]="{
+          empty: !isLoading && !transactions.length
+        }">
+        @if (!isLoading) {
+          @if (transactions.length) {
+            <canvas
+              baseChart
+              [type]="CHART_TYPE"
+              [data]="(chartDataSum$ | async)!"
+              [options]="chartOptions">
+            </canvas>
+          }
+          @else {
+            <ng-container [ngTemplateOutlet]="empty"></ng-container>
+          }
+        }
+      </nb-card-body>
+      <nb-card-footer>
+        <ng-container [ngTemplateOutlet]="filter"></ng-container>
+      </nb-card-footer>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card [size]="cardSize">
+      <nb-card-header>
+        {{ 'OVERVIEW_PAGE.CATEGORIES_CHART.TITLES.COUNT' | transloco }}
+      </nb-card-header>
+      <nb-card-body
+        [nbSpinner]="isLoading"
+        [ngClass]="{
+          empty: !isLoading && !transactions.length
+        }">
+        @if (!isLoading) {
+          @if (transactions.length) {
+            <canvas
+              baseChart
+              [type]="CHART_TYPE"
+              [data]="(chartDataCount$ | async)!"
+              [options]="chartOptions">
+            </canvas>
+          }
+          @else {
+            <ng-container [ngTemplateOutlet]="empty"></ng-container>
+          }
+        }
+      </nb-card-body>
+      <nb-card-footer>
+        <ng-container [ngTemplateOutlet]="filter"></ng-container>
+      </nb-card-footer>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>
+
+<ng-template #filter>
+  <div>
+    <input
+      nbInput
+      placeholder="{{ 'OVERVIEW_PAGE.CATEGORIES_CHART.FROM_DATE_FILTER.PLACEHOLDER' | transloco }}"
+      [maskito]="DATE_MASK"
+      [formControl]="fromDateFormControl"
+      [nbDatepicker]="fromDatePicker"/>
+    <nb-datepicker
+      #fromDatePicker
+      [filter]="transactionFromDatePickerFilterFn">
+    </nb-datepicker>
+    <input
+      nbInput
+      placeholder="{{ 'OVERVIEW_PAGE.CATEGORIES_CHART.TO_DATE_FILTER.PLACEHOLDER' | transloco }}"
+      [maskito]="DATE_MASK"
+      [formControl]="toDateFormControl"
+      [nbDatepicker]="toDatePicker"/>
+    <nb-datepicker
+      #toDatePicker
+      [filter]="transactionToDatePickerFilterFn">
+    </nb-datepicker>
+  </div>
+  @if (transactionTypeFilterChange$ | async; as transactionTypeFilterChange) {
+    <nb-button-group
+      multiple
+      (valueChange)="onTransactionTypeFilterChange($event)">
+      @for (transactionType of transactionTypes; track transactionType) {
+        <button
+          nbButtonToggle
+          [pressed]="transactionTypeFilterChange.includes(transactionType)"
+          [value]="transactionType">
+          {{ 'ENUMS.TRANSACTION_TYPES.' + transactionType | transloco }}
+        </button>
+      }
+    </nb-button-group>
+  }
+</ng-template>
+
+<ng-template #empty>
+  <div class="text-center">
+    <p>
+      <strong>
+        {{ 'OVERVIEW_PAGE.CATEGORIES_CHART.NO_TRANSACTIONS' | transloco }}
+      </strong>
+    </p>
+    <button
+      nbButton
+      status="success"
+      [routerLink]="[TRANSACTIONS_LINK]"
+      [queryParams]="QUERY_PARAMS">
+      {{ 'OVERVIEW_PAGE.CATEGORIES_CHART.BUTTONS.ADD' | transloco }}
+    </button>
+  </div>
+</ng-template>

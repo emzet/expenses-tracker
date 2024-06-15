@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import { LanguageService } from '@services/language.service';
+
+
 
 @Component({
-  selector: 'app-root',
+  selector: 'expenses-tracker-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    RouterOutlet
+  ]
 })
 export class AppComponent {
-  title = 'test-app';
+  readonly #languageService = inject(LanguageService);
+
+  constructor() {
+    this.#languageService.init();
+  }
 }

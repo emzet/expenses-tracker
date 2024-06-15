@@ -1,0 +1,16 @@
+@for (languageCode of availableLanguages; track $index) {
+  <nb-button-group>
+    @if (languageCode !== activeLanguage) {
+      <button
+        nbButton
+        status="basic"
+        [value]="languageCode"
+        (click)="languageSelect.emit(languageCode)">
+        <nb-icon
+          icon="globe-outline">
+        </nb-icon>
+        {{ languageCode | uppercase }}
+      </button>
+    }
+  </nb-button-group>
+}

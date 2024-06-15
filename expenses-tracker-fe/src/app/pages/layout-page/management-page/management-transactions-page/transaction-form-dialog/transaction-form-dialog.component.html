@@ -1,0 +1,201 @@
+<nb-card>
+  <nb-card-header>
+    {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.' + (isEditMode ? 'EDIT' : 'ADD') + '_TITLE' | transloco }}
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="transactionForm"
+      (keyup.enter)="onConfirmButtonClick()">
+      <div class="form-field">
+        <label class="label form-field-label">
+          {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.TITLE.LABEL' | transloco }}
+        </label>
+        <div class="form-field-input">
+          <input
+            nbInput
+            fullWidth
+            type="text"
+            formControlName="title"
+            placeholder="{{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.TITLE.PLACEHOLDER' | transloco }}"
+            [status]="transactionForm.controls.title.touched && transactionForm.controls.title.invalid
+              ? 'danger'
+              : 'basic'"/>
+          <ng-container
+            *ngTemplateOutlet="errorMessage;context:{
+              fieldName: 'TITLE',
+              formControl: transactionForm.controls.title
+            }">
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="label form-field-label">
+          {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.AMOUNT.LABEL' | transloco }}
+        </label>
+        <div class="form-field-input">
+          <input
+            nbInput
+            fullWidth
+            type="text"
+            formControlName="amount"
+            placeholder="{{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.AMOUNT.PLACEHOLDER' | transloco }}"
+            [maskito]="AMOUNT_MASK"
+            [status]="transactionForm.controls.amount.touched && transactionForm.controls.amount.invalid
+              ? 'danger'
+              : 'basic'"/>
+        <ng-container
+          *ngTemplateOutlet="errorMessage;context:{
+            fieldName: 'AMOUNT',
+            formControl: transactionForm.controls.amount
+          }">
+        </ng-container>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="label form-field-label">
+          {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.DATE.LABEL' | transloco }}
+        </label>
+        <div class="form-field-input">
+          <input
+            nbInput
+            fullWidth
+            formControlName="date"
+            placeholder="{{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.DATE.PLACEHOLDER' | transloco }}"
+            [maskito]="DATE_MASK"
+            [nbDatepicker]="transactionDate"
+            [status]="transactionForm.controls.date.touched && transactionForm.controls.date.invalid
+              ? 'danger'
+              : 'basic'"/>
+          <nb-datepicker
+            #transactionDate
+            [filter]="transactionDatePickerFilterFn">
+          </nb-datepicker>
+          <ng-container
+            *ngTemplateOutlet="errorMessage;context:{
+              fieldName: 'DATE',
+              formControl: transactionForm.controls.date
+            }">
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="label form-field-label">
+          {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.TYPE.LABEL' | transloco }}
+        </label>
+        <div class="form-field-input">
+          <nb-select
+            fullWidth
+            formControlName="type"
+            scrollStrategy="noop"
+            placeholder="{{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.TYPE.PLACEHOLDER' | transloco }}"
+            [status]="transactionForm.controls.type.touched && transactionForm.controls.type.invalid
+              ? 'danger'
+              : 'basic'">
+            @for (type of types; track type) {
+              <nb-option
+                [value]="type">
+                {{ 'ENUMS.TRANSACTION_TYPES.' + type | transloco }}
+              </nb-option>
+            }
+          </nb-select>
+          <ng-container
+            *ngTemplateOutlet="errorMessage;context:{
+              fieldName: 'TYPE',
+              formControl: transactionForm.controls.type
+            }">
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="label form-field-label">
+          {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.CATEGORY.LABEL' | transloco }}
+        </label>
+        <div class="form-field-input">
+          <nb-select
+            fullWidth
+            formControlName="categoryId"
+            scrollStrategy="noop"
+            placeholder="{{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.CATEGORY.PLACEHOLDER' | transloco }}"
+            [status]="transactionForm.controls.categoryId.touched && transactionForm.controls.categoryId.invalid
+              ? 'danger'
+              : 'basic'">
+            @for (category of categories; track category.id) {
+              <nb-option
+                [value]="category.id">
+                {{
+                  category.isDefault
+                    ? (('ENUMS.CATEGORIES.' + (category.title | uppercase | etTextFormat:'replace':' ':'_')) | transloco)
+                    : category.title
+                }}
+              </nb-option>
+            }
+          </nb-select>
+          <ng-container
+            *ngTemplateOutlet="errorMessage;context:{
+              fieldName: 'CATEGORY',
+              formControl: transactionForm.controls.categoryId
+            }">
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="label form-field-label">
+          {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.DESCRIPTION.LABEL' | transloco }}
+        </label>
+        <div class="form-field-input">
+          <textarea
+            nbInput
+            fullWidth
+            rows="3"
+            formControlName="description"
+            placeholder="{{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.DESCRIPTION.PLACEHOLDER' | transloco }}"
+            [status]="transactionForm.controls.description.touched && transactionForm.controls.description.invalid
+              ? 'danger'
+              : 'basic'">
+          </textarea>
+          <ng-container
+            *ngTemplateOutlet="errorMessage;context:{
+              fieldName: 'DESCRIPTION',
+              formControl: transactionForm.controls.description
+            }">
+          </ng-container>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button
+      nbButton
+      status="success"
+      (click)="onConfirmButtonClick()">
+      <nb-icon
+        icon="save-outline">
+      </nb-icon>
+      {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.BUTTONS.CONFIRM' | transloco }}
+    </button>
+    <button
+      nbButton
+      status="secondary"
+      (click)="onCancelButtonClick()">
+      <nb-icon
+        icon="close-outline">
+      </nb-icon>
+      {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.BUTTONS.CANCEL' | transloco }}
+    </button>
+  </nb-card-footer>
+</nb-card>
+
+
+<ng-template #errorMessage let-fieldName="fieldName" let-formControl="formControl">
+  @if (formControl.touched && formControl.invalid) {
+    @if (formControl.errors['required']) {
+      <div class="form-field-error">
+        {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.' + fieldName + '.ERRORS.REQUIRED' | transloco }}
+      </div>
+    }
+    @if (!formControl.errors['required'] && formControl.errors['invalidDate']) {
+      <div class="form-field-error">
+        {{ 'MANAGEMENT.TRANSACTIONS_PAGE.FORM.FIELDS.' + fieldName + '.ERRORS.INVALID_DATE' | transloco }}
+      </div>
+    }
+  }
+</ng-template>

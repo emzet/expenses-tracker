@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  width: 480px;
+
+  nb-card-footer {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  nb-alert {
+    margin-bottom: 0;
+  }
+
+  .form-field {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-field-label {
+      margin-top: 12px;
+      width: 33.33%;
+    }
+
+    .form-field-input {
+      flex: 1;
+
+      input, nb-select, textarea {
+        margin-bottom: 32px;
+
+        &.ng-touched.ng-invalid {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .form-field-error {
+      color: var(--alert-danger-background-color);
+      margin-top: 12px;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+
+    textarea {
+      max-height: 10rem;
+      min-height: 40px;
+      resize: vertical;
+    }
+  }
+}

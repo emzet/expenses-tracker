@@ -1,0 +1,28 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "ignoreFiles": [
+    "**/dist/**",
+    "**/doc?(s)/**",
+    "**/node_modules/**",
+    "**/src/assets/**",
+    "**/src/index.html"
+  ],
+  "rules": {
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": [
+          "ng-deep"
+        ]
+      }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": [
+          "/^(expenses-tracker)-(.+)/"
+        ]
+      }
+    ]
+  }
+}

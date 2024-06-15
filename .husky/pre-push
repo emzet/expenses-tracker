@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+CURRENT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+ALLOWED_BRANCHES_REGEX="(^main$)|(^master$)|(^develop$)|(^(feature|(bug|hot)fix)\/[A-Z]+-[0-9]+$)|(^release\/[0-9]+\.[0-9]+\.[0-9]+$)"
+
+if [[ ! $CURRENT_BRANCH_NAME =~ $ALLOWED_BRANCHES_REGEX ]]; then
+  echo "Current Git branch name:" $CURRENT_BRANCH_NAME
+  echo "Doesn't match supplied RegExp:" $ALLOWED_BRANCHES_REGEX
+
+  exit 1
+fi

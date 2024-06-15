@@ -1,0 +1,33 @@
+:host {
+  display: block;
+
+  .actions {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin: 36px 0;
+  }
+
+  .title {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+    margin-top: 0;
+  }
+
+  nb-list {
+    margin-bottom: 8px;
+
+    nb-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      .item-actions {
+        display: flex;
+        gap: 16px;
+      }
+    }
+  }
+}

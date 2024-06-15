@@ -1,0 +1,39 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": [
+    // mandatory
+    "1000ch.svgo",
+    "HTMLHint.vscode-htmlhint",
+    "angular.ng-template",
+    "atlassian.atlascode",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "davidanson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "redhat.vscode-yaml",
+    "stylelint.vscode-stylelint",
+    // optional
+    "emmanuelbeziat.vscode-great-icons",
+    "mkxml.vscode-filesize",
+    "natqe.reload",
+    "nmsmith89.incrementor",
+    "tomoki1207.selectline-statusbar",
+    "tyriar.sort-lines"
+  ],
+  "unwantedRecommendations": [
+    "GitHub.copilot",
+    "donjayamanne.githistory",
+    "eamodio.gitlens",
+    "felipecaputo.git-project-manager",
+    "firefox-devtools.vscode-firefox-debug",
+    "googlecloudtools.cloudcode",
+    "ms-azuretools.vscode-docker",
+    "ms-dotnettools.csdevkit",
+    "ms-edgedevtools.vscode-edge-devtools",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-vscode-remote.remote-containers",
+    "vscodevim.vim"
+  ]
+}

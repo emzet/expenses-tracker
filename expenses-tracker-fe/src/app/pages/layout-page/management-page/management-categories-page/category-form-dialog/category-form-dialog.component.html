@@ -1,0 +1,66 @@
+<nb-card>
+  <nb-card-header>
+    {{ 'MANAGEMENT.CATEGORIES_PAGE.FORM.' + (isEditMode ? 'EDIT' : 'ADD') + '_TITLE' | transloco }}
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="categoryForm"
+      (keyup.enter)="onConfirmButtonClick()">
+      <div class="form-field">
+        <label class="label form-field-label">
+          {{ 'MANAGEMENT.CATEGORIES_PAGE.FORM.FIELDS.TITLE.LABEL' | transloco }}
+        </label>
+        <div class="form-field-input">
+          <input
+            nbInput
+            fullWidth
+            formControlName="title"
+            placeholder="{{ 'MANAGEMENT.CATEGORIES_PAGE.FORM.FIELDS.TITLE.PLACEHOLDER' | transloco }}"
+            [status]="categoryForm.controls.title.touched && categoryForm.controls.title.invalid
+              ? 'danger'
+              : 'basic'"/>
+            <ng-container
+              *ngTemplateOutlet="errorMessage;context:{
+                fieldName: 'TITLE',
+                formControl: categoryForm.controls.title
+              }">
+            </ng-container>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button
+      nbButton
+      status="success"
+      (click)="onConfirmButtonClick()">
+      <nb-icon
+        icon="save-outline">
+      </nb-icon>
+      {{ 'MANAGEMENT.CATEGORIES_PAGE.FORM.BUTTONS.CONFIRM' | transloco }}
+    </button>
+    <button
+      nbButton
+      status="secondary"
+      (click)="onCancelButtonClick()">
+      <nb-icon
+        icon="close-outline">
+      </nb-icon>
+      {{ 'MANAGEMENT.CATEGORIES_PAGE.FORM.BUTTONS.CANCEL' | transloco }}
+    </button>
+  </nb-card-footer>
+</nb-card>
+
+<ng-template #errorMessage let-fieldName="fieldName" let-formControl="formControl">
+  @if (formControl.touched && formControl.invalid) {
+    @if (formControl.errors['required']) {
+      <div class="form-field-error">
+        {{ 'MANAGEMENT.CATEGORIES_PAGE.FORM.FIELDS.' + fieldName + '.ERRORS.REQUIRED' | transloco }}
+      </div>
+    }
+    @if (formControl.errors['duplicate']) {
+      <div class="form-field-error">
+        {{ 'MANAGEMENT.CATEGORIES_PAGE.FORM.FIELDS.' + fieldName + '.ERRORS.DUPLICATE' | transloco }}
+      </div>
+    }
+  }
+</ng-template>

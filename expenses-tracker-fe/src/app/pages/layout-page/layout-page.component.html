@@ -1,0 +1,47 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <h5 class="title">
+      <a href="/">
+        {{ 'APP_NAME' | transloco }}
+      </a>
+    </h5>
+    <nb-actions size="medium">
+      <nb-action>
+        <expenses-tracker-language-selector
+          [activeLanguage]="(activeLanguage$ | async)!"
+          [availableLanguages]="availableLanguages"
+          (languageSelect)="onLanguageSelect($event)">
+        </expenses-tracker-language-selector>
+      </nb-action>
+      <nb-action>
+        @if (userContextMenuItems$ | async; as userContextMenuItems) {
+          <nb-user
+            size="large"
+            picture="assets/images/user-avatar.svg"
+            name="{{ userEmail$ | async }}"
+            [nbContextMenu]="userContextMenuItems">
+          </nb-user>
+        }
+      </nb-action>
+    </nb-actions>
+  </nb-layout-header>
+  <nb-sidebar
+    state="expanded"
+    [responsive]="true"
+    [compactedBreakpoints]="['md']">
+    @if (sideBarMenuItems$ | async; as sideBarMenuItems) {
+      <nb-menu
+        tag="sidebar-menu"
+        [items]="sideBarMenuItems">
+      </nb-menu>
+    }
+  </nb-sidebar>
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+  <nb-layout-footer fixed>
+    <div>
+      <strong (click)="onAppInfoClick()">{{ APP_NAME }}</strong> v{{ APP_VERSION }}
+    </div>
+  </nb-layout-footer>
+</nb-layout>

@@ -1,0 +1,266 @@
+{
+  "API": {
+    "CATEGORIES": {
+      "CREATE_SUCCESS": "Category {{ category }} added",
+      "DELETE_SUCCESS": "Category {{ category }} removed",
+      "LOAD_SUCCESS": "Categories loaded",
+      "UPDATE_SUCCESS": "Category {{ category }} updated"
+    },
+    "TRANSACTIONS": {
+      "CREATE_SUCCESS": "Transaction {{ transaction }} added",
+      "DELETE_SUCCESS": "Transaction {{ transaction }} removed",
+      "LOAD_SUCCESS": "Transactions loaded",
+      "UPDATE_SUCCESS": "Transaction {{ transaction }} updated"
+    }
+  },
+  "APP_NAME": "Expenses Tracker",
+  "CATEGORIES_CHART": {
+    "TITLE": "By categories",
+    "TRANSACTIONS_TYPE_FILTER": {
+      "OPTIONS": {
+        "ALL": "All"
+      }
+    }
+  },
+  "CONFIRMATION_DIALOG": {
+    "BUTTONS": {
+      "CANCEL": "No",
+      "CONFIRM": "Yes"
+    },
+    "TEXT": "Do you want proceed?"
+  },
+  "ENUMS": {
+    "CATEGORIES": {
+      "CLOTHING_AND_ACCESSORIES": "Clothing and Accessories",
+      "DEBT_PAYMENTS": "Debt Payments",
+      "DREAM_JOB": "Dream Job",
+      "ENTERTAINMENT": "Entertainment",
+      "FOOD": "Food",
+      "GIFTS_AND_DONATIONS": "Gifts and Donations",
+      "HEALTH_CARE": "Health Care",
+      "PASSIVE_INCOME": "Passive Income",
+      "PERSONAL_CARE": "Personal Care",
+      "SIDE_HUSTLE": "Side Hustle",
+      "TRANSPORTATION": "Transportation"
+    },
+    "TRANSACTION_TYPES": {
+      "EXPENSE": "Expense",
+      "INCOME": "Income"
+    }
+  },
+  "INFORMATION_DIALOG": {
+    "BUTTONS": {
+      "CONFIRM": "Close"
+    }
+  },
+  "MANAGEMENT": {
+    "CATEGORIES_PAGE": {
+      "ACTION_BUTTONS": {
+        "ADD": "Add category",
+        "EDIT": "Edit",
+        "RELOAD": "Reload",
+        "REMOVE": "Remove"
+      },
+      "DIALOG_REMOVE_TEXT": "Do you want to remove category <strong>{{ categoryTitle }}</strong>?",
+      "FORM": {
+        "ADD_TITLE": "New category",
+        "BUTTONS": {
+          "CANCEL": "Cancel",
+          "CONFIRM": "Save"
+        },
+        "EDIT_TITLE": "Edit category",
+        "FIELDS": {
+          "TITLE": {
+            "ERRORS": {
+              "DUPLICATE": "Title already exists",
+              "REQUIRED": "Title field is required"
+            },
+            "LABEL": "Title",
+            "PLACEHOLDER": "Category title"
+          }
+        }
+      },
+      "TITLES": {
+        "DEFAULT_CATEGORIES": "Default categories",
+        "USER_CATEGORIES": "User categories"
+      },
+      "NO_CATEGORIES": "No categories found. Please add any category first."
+    },
+    "TABS": {
+      "CATEGORIES": "Categories management",
+      "TRANSACTIONS": "Transactions management"
+    },
+    "TRANSACTIONS_PAGE": {
+      "ACTION_BUTTONS": {
+        "ADD": "Add transaction",
+        "RELOAD": "Reload"
+      },
+      "DIALOG_REMOVE_TEXT": "Do you want to remove transaction <strong>{{ transactionTitle }}</strong>?",
+      "FORM": {
+        "ADD_TITLE": "New transaction",
+        "BUTTONS": {
+          "CANCEL": "Cancel",
+          "CONFIRM": "Save",
+          "OK": "OK"
+        },
+        "EDIT_TITLE": "Edit transaction",
+        "FIELDS": {
+          "AMOUNT": {
+            "ERRORS": {
+              "REQUIRED": "Amount field is required"
+            },
+            "LABEL": "Amount",
+            "PLACEHOLDER": "Put transaction amount"
+          },
+          "CATEGORY": {
+            "ERRORS": {
+              "REQUIRED": "Category field is required"
+            },
+            "LABEL": "Category",
+            "PLACEHOLDER": "Choose transaction category"
+          },
+          "DATE": {
+            "ERRORS": {
+              "INVALID_DATE": "Date field has invalid format",
+              "REQUIRED": "Date field is required"
+            },
+            "LABEL": "Date",
+            "PLACEHOLDER": "Put transaction date"
+          },
+          "DESCRIPTION": {
+            "ERRORS": {
+              "REQUIRED": "Description field is required"
+            },
+            "LABEL": "Description",
+            "PLACEHOLDER": "Put transaction description"
+          },
+          "TITLE": {
+            "ERRORS": {
+              "REQUIRED": "Title field is required"
+            },
+            "LABEL": "Title",
+            "PLACEHOLDER": "Put transaction title"
+          },
+          "TYPE": {
+            "ERRORS": {
+              "REQUIRED": "Type field is required"
+            },
+            "LABEL": "Type",
+            "PLACEHOLDER": "Choose transaction type"
+          }
+        },
+        "NO_CATEGORIES": "No categories found. Please add any category first."
+      },
+      "TABLE": {
+        "COLUMNS": {
+          "ACTIONS": "Actions",
+          "AMOUNT": "Amount",
+          "CATEGORY": "Category",
+          "DATE": "Date",
+          "DESCRIPTION": "Description",
+          "TITLE": "Title",
+          "TYPE": "Type"
+        },
+        "ACTION_BUTTONS": {
+          "EDIT": "Edit",
+          "DELETE": "Delete"
+        },
+        "NO_DATA": "No transactions found",
+        "SELECT_PLACEHOLDER": "All"
+      }
+    }
+  },
+  "MENU": {
+    "SIDEBAR": {
+      "LOGOUT": {
+        "TITLE": "Logout"
+      },
+      "MANAGEMENT": {
+        "CATEGORIES": {
+          "TITLE": "Categories"
+        },
+        "TITLE": "Management",
+        "TRANSACTIONS": {
+          "TITLE": "Transactions"
+        }
+      },
+      "OVERVIEW": {
+        "TITLE": "Overview"
+      }
+    },
+    "USER": {
+      "LOGOUT": {
+        "TITLE": "Logout"
+      }
+    }
+  },
+  "META": {
+    "AUTH": {
+      "LOGIN_PAGE": {
+        "DESCRIPTION": "Login",
+        "TITLE": "Login"
+      },
+      "LOGOUT_PAGE": {
+        "DESCRIPTION": "Logout",
+        "TITLE": "Logout"
+      },
+      "REGISTER_PAGE": {
+        "DESCRIPTION": "Register",
+        "TITLE": "Register"
+      }
+    },
+    "DEFAULT": {
+      "DESCRIPTION": "Expenses Tracker",
+      "TITLE": "Expenses Tracker"
+    },
+    "MANAGEMENT": {
+      "CATEGORIES_PAGE": {
+        "DESCRIPTION": "Categories management",
+        "TITLE": "Categories management"
+      },
+      "TRANSACTIONS_PAGE": {
+        "DESCRIPTION": "Transactions management",
+        "TITLE": "Transactions management"
+      }
+    },
+    "OVERVIEW_PAGE": {
+      "DESCRIPTION": "Overview",
+      "TITLE": "Overview"
+    }
+  },
+  "OVERVIEW_PAGE": {
+    "TRANSACTIONS_CHART": {
+      "TITLES": {
+        "AVG": "Transactions - average sum",
+        "SUM": "Transactions - total sum",
+        "COUNT": "Transactions - count"
+      },
+      "YEAR_FILTER": {
+        "NO_FILTER": "Year"
+      },
+      "MONTH_FILTER": {
+        "NO_FILTER": "Month"
+      },
+      "NO_TRANSACTIONS": "No transactions found",
+      "BUTTONS": {
+        "ADD": "Start by adding a new one"
+      }
+    },
+    "CATEGORIES_CHART": {
+      "TITLES": {
+        "SUM": "Category - total sum",
+        "COUNT": "Category - count"
+      },
+      "FROM_DATE_FILTER": {
+        "PLACEHOLDER": "Select date from"
+      },
+      "TO_DATE_FILTER": {
+        "PLACEHOLDER": "Select date to"
+      },
+      "NO_TRANSACTIONS": "No transactions found",
+      "BUTTONS": {
+        "ADD": "Start by adding a new one"
+      }
+    }
+  }
+}

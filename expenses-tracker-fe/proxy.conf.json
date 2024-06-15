@@ -1,0 +1,13 @@
+[
+  {
+    "context": [
+      "/api"
+    ],
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "secure": false,
+    "logLevel": "debug",
+    "target": "http://localhost:3333"
+  }
+]

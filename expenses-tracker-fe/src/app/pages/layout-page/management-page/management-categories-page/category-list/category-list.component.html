@@ -1,0 +1,101 @@
+<div class="actions">
+  <button
+    nbButton
+    status="success"
+    [disabled]="isDialogOpened"
+    (click)="onAddButtonClick()">
+    <nb-icon
+      icon="plus-outline">
+    </nb-icon>
+    {{ 'MANAGEMENT.CATEGORIES_PAGE.ACTION_BUTTONS.ADD' | transloco }}
+  </button>
+  <button
+    nbButton
+    status="basic"
+    [disabled]="isLoading"
+    (click)="onReloadButtonClick()">
+    <nb-icon
+      icon="refresh-outline">
+    </nb-icon>
+    {{ 'MANAGEMENT.CATEGORIES_PAGE.ACTION_BUTTONS.RELOAD' | transloco }}
+  </button>
+</div>
+
+@if (defaultCategories.length) {
+  <h5 class="title">
+    <span>
+      {{ 'MANAGEMENT.CATEGORIES_PAGE.TITLES.DEFAULT_CATEGORIES' | transloco }}
+    </span>
+    <nb-tag
+      status="info"
+      text="{{ defaultCategories.length }}">
+    </nb-tag>
+  </h5>
+  <nb-alert
+    status="basic"
+    [nbSpinner]="isLoading">
+    <nb-tag-list>
+      @for (defaultCategory of defaultCategories; track defaultCategory.id) {
+        <nb-tag
+          status="outline-primary"
+          [text]="('ENUMS.CATEGORIES.' + (defaultCategory.title | uppercase | etTextFormat:'replace':' ':'_')) | transloco">
+        </nb-tag>
+      }
+    </nb-tag-list>
+  </nb-alert>
+}
+
+<h5 class="title">
+  <span>
+    {{ 'MANAGEMENT.CATEGORIES_PAGE.TITLES.USER_CATEGORIES' | transloco }}
+  </span>
+  <nb-tag
+    status="info"
+    text="{{ userCategories.length }}">
+  </nb-tag>
+</h5>
+@if (userCategories.length) {
+  <nb-list [nbSpinner]="isLoading">
+    @for (userCategory of userCategories; track userCategory.id) {
+      <nb-list-item>
+        <div class="item-name">
+          <nb-tag
+            status="basic"
+            [text]="userCategory.title">
+          </nb-tag>
+        </div>
+        <div class="item-actions">
+          <button
+            nbButton
+            status="warning"
+            [disabled]="isDialogOpened"
+            (click)="onEditIconClick(userCategory)">
+            <nb-icon
+              icon="edit-outline">
+            </nb-icon>
+            {{ 'MANAGEMENT.CATEGORIES_PAGE.ACTION_BUTTONS.EDIT' | transloco }}
+          </button>
+          <button
+            nbButton
+            status="danger"
+            [disabled]="isDialogOpened"
+            (click)="onRemoveIconClick(userCategory)">
+            <nb-icon
+              icon="trash-outline">
+            </nb-icon>
+            {{ 'MANAGEMENT.CATEGORIES_PAGE.ACTION_BUTTONS.REMOVE' | transloco }}
+          </button>
+        </div>
+      </nb-list-item>
+    }
+  </nb-list>
+}
+@else if (!isLoading) {
+  <nb-alert status="warning">
+    {{ 'MANAGEMENT.CATEGORIES_PAGE.NO_CATEGORIES' | transloco }}
+  </nb-alert>
+}
+
+@if (isLoading && !defaultCategories.length && !userCategories.length) {
+  <nb-alert [nbSpinner]="true"></nb-alert>
+}

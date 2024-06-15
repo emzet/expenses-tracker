@@ -22,16 +22,35 @@ export class CategoriesService {
     return this.categoriesDao.findAll(userId);
   }
 
-  async remove(id: string, userId: string) {
+  async update(id: string, userId: string, categoryDto: CategoryDto) {
     const category = await this.categoriesDao.findOne(id);
+
     if (!category) {
       throw new NotFoundException('Category not found.');
     }
+
+    if (category.authorId !== userId) {
+      throw new ForbiddenException(
+        "Can't touch this. You can udpate only your own categories",
+      );
+    }
+
+    return this.categoriesDao.update(id, categoryDto);
+  }
+
+  async remove(id: string, userId: string) {
+    const category = await this.categoriesDao.findOne(id);
+
+    if (!category) {
+      throw new NotFoundException('Category not found.');
+    }
+
     if (category.authorId !== userId) {
       throw new ForbiddenException(
         "Can't touch this. You can delete only your own categories",
       );
     }
+
     return this.categoriesDao.remove(id);
   }
 }

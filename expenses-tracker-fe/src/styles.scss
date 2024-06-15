@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'themes' as *;
+
+// framework component styles
+@use '@nebular/theme/styles/globals' as *;
+@use '@nebular/auth/styles/globals' as *;
+
+// install the framework styles
+@include nb-install {
+  @include nb-theme-global;
+  @include nb-auth-global;
+}

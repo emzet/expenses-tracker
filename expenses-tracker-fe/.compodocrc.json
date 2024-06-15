@@ -1,0 +1,6 @@
+{
+  "name": "Documentation",
+  "output": "docs",
+  "port": 4300,
+  "tsconfig": "tsconfig.doc.json"
+}

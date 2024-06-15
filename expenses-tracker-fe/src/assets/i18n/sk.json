@@ -1,0 +1,266 @@
+{
+  "API": {
+    "CATEGORIES": {
+      "CREATE_SUCCESS": "Kategória {{ category }} pridaná",
+      "DELETE_SUCCESS": "Kategória {{ category }} odstránená",
+      "LOAD_SUCCESS": "Kategórie načítané",
+      "UPDATE_SUCCESS": "Kategória {{ category }} upravená"
+    },
+    "TRANSACTIONS": {
+      "CREATE_SUCCESS": "Transakcia {{ transaction }} pridaná",
+      "DELETE_SUCCESS": "Transakcia {{ transaction }} odstránená",
+      "LOAD_SUCCESS": "Transakcie načítané",
+      "UPDATE_SUCCESS": "Transakcia {{ transaction }} upravená"
+    }
+  },
+  "APP_NAME": "Sledovanie výdavkov",
+  "CATEGORIES_CHART": {
+    "TITLE": "Podľa kategórií",
+    "TRANSACTIONS_TYPE_FILTER": {
+      "OPTIONS": {
+        "ALL": "Všetky"
+      }
+    }
+  },
+  "CONFIRMATION_DIALOG": {
+    "BUTTONS": {
+      "CANCEL": "Zrušiť",
+      "CONFIRM": "Áno"
+    },
+    "TEXT": "Chcete pokračovať?"
+  },
+  "ENUMS": {
+    "CATEGORIES": {
+      "CLOTHING_AND_ACCESSORIES": "Oblečenie a doplnky",
+      "DEBT_PAYMENTS": "Platby dlhu",
+      "DREAM_JOB": "Práca snov",
+      "ENTERTAINMENT": "Zábava",
+      "FOOD": "Jedlo",
+      "GIFTS_AND_DONATIONS": "Darčeky a dary",
+      "HEALTH_CARE": "Zdravotná starostlivosť",
+      "PASSIVE_INCOME": "Pasívny príjem",
+      "PERSONAL_CARE": "Osobná starostlivosť",
+      "SIDE_HUSTLE": "Bočný príjem",
+      "TRANSPORTATION": "Doprava"
+    },
+    "TRANSACTION_TYPES": {
+      "EXPENSE": "Výdavky",
+      "INCOME": "Príjmy"
+    }
+  },
+  "INFORMATION_DIALOG": {
+    "BUTTONS": {
+      "CONFIRM": "Zavrieť"
+    }
+  },
+  "MANAGEMENT": {
+    "CATEGORIES_PAGE": {
+      "ACTION_BUTTONS": {
+        "ADD": "Pridať kategóriu",
+        "EDIT": "Upraviť",
+        "RELOAD": "Obnoviť",
+        "REMOVE": "Odstrániť"
+      },
+      "DIALOG_REMOVE_TEXT": "Chcete odstrániť kategóriu <strong>{{ categoryTitle }}</strong>?",
+      "FORM": {
+        "ADD_TITLE": "Nová kategória",
+        "BUTTONS": {
+          "CANCEL": "Zrušiť",
+          "CONFIRM": "Uložiť"
+        },
+        "EDIT_TITLE": "Upraviť kategóriu",
+        "FIELDS": {
+          "TITLE": {
+            "ERRORS": {
+              "DUPLICATE": "Zadaný názov už existuje",
+              "REQUIRED": "Pole názov je povinné"
+            },
+            "LABEL": "Názov",
+            "PLACEHOLDER": "Názov kategórie"
+          }
+        }
+      },
+      "TITLES": {
+        "DEFAULT_CATEGORIES": "Predvolené kategórie",
+        "USER_CATEGORIES": "Používateľské kategórie"
+      },
+      "NO_CATEGORIES": "Nenašli sa žiadne kategórie. Najprv pridajte ľubovoľnú kategóriu."
+    },
+    "TABS": {
+      "CATEGORIES": "Správa kategórií",
+      "TRANSACTIONS": "Správa transakcií"
+    },
+    "TRANSACTIONS_PAGE": {
+      "ACTION_BUTTONS": {
+        "ADD": "Pridať transakciu",
+        "RELOAD": "Obnoviť"
+      },
+      "DIALOG_REMOVE_TEXT": "Chcete odstrániť transackciu <strong>{{ transactionTitle }}</strong>?",
+      "FORM": {
+        "ADD_TITLE": "Nová transakcia",
+        "BUTTONS": {
+          "CANCEL": "Zrušiť",
+          "CONFIRM": "Uložiť",
+          "OK": "Dobre"
+        },
+        "EDIT_TITLE": "Upraviť transakciu",
+        "FIELDS": {
+          "AMOUNT": {
+            "ERRORS": {
+              "REQUIRED": "Pole suma je povinné"
+            },
+            "LABEL": "Suma",
+            "PLACEHOLDER": "Zadajte sumu transakcie"
+          },
+          "CATEGORY": {
+            "ERRORS": {
+              "REQUIRED": "Pole kategória je povinné"
+            },
+            "LABEL": "Kategória",
+            "PLACEHOLDER": "Vyberte kategóriu transakcie"
+          },
+          "DATE": {
+            "ERRORS": {
+              "INVALID_DATE": "Pole dátum má nesprávny formát",
+              "REQUIRED": "Pole dátum je povinné"
+            },
+            "LABEL": "Dátum",
+            "PLACEHOLDER": "Zadajte dátum transakcie"
+          },
+          "DESCRIPTION": {
+            "ERRORS": {
+              "REQUIRED": "Pole popis je povinné"
+            },
+            "LABEL": "Popis",
+            "PLACEHOLDER": "Zadajte popis transakcie"
+          },
+          "TITLE": {
+            "ERRORS": {
+              "REQUIRED": "Pole názov je povinné"
+            },
+            "LABEL": "Názov",
+            "PLACEHOLDER": "Zadajte názov transakcie"
+          },
+          "TYPE": {
+            "ERRORS": {
+              "REQUIRED": "Pole typ je povinné"
+            },
+            "LABEL": "Typ",
+            "PLACEHOLDER": "Vyberte typ transakcie"
+          }
+        },
+        "NO_CATEGORIES": "Nenašli sa žiadne kategórie. Najprv pridajte ľubovoľnú kategóriu."
+      },
+      "TABLE": {
+        "COLUMNS": {
+          "ACTIONS": "Možnosti",
+          "AMOUNT": "Suma",
+          "CATEGORY": "Kategória",
+          "DATE": "Dátum",
+          "DESCRIPTION": "Popis",
+          "TITLE": "Názov",
+          "TYPE": "Typ"
+        },
+        "ACTION_BUTTONS": {
+          "EDIT": "Upraviť",
+          "DELETE": "Odstrániť"
+        },
+        "NO_DATA": "Nenašli sa žiadne transakcie",
+        "SELECT_PLACEHOLDER": "Všetky"
+      }
+    }
+  },
+  "MENU": {
+    "SIDEBAR": {
+      "LOGOUT": {
+        "TITLE": "Odhlásiť sa"
+      },
+      "MANAGEMENT": {
+        "CATEGORIES": {
+          "TITLE": "Kategórie"
+        },
+        "TITLE": "Správa",
+        "TRANSACTIONS": {
+          "TITLE": "Transakcie"
+        }
+      },
+      "OVERVIEW": {
+        "TITLE": "Prehľad"
+      }
+    },
+    "USER": {
+      "LOGOUT": {
+        "TITLE": "Odhlásiť sa"
+      }
+    }
+  },
+  "META": {
+    "AUTH": {
+      "LOGIN_PAGE": {
+        "DESCRIPTION": "Prihlásenie",
+        "TITLE": "Prihlásenie"
+      },
+      "LOGOUT_PAGE": {
+        "DESCRIPTION": "Odhlásenie",
+        "TITLE": "Odhlásenie"
+      },
+      "REGISTER_PAGE": {
+        "DESCRIPTION": "Registrácia",
+        "TITLE": "Registrácia"
+      }
+    },
+    "DEFAULT": {
+      "DESCRIPTION": "Sledovanie výdavkov",
+      "TITLE": "Sledovanie výdavkov"
+    },
+    "MANAGEMENT": {
+      "CATEGORIES_PAGE": {
+        "DESCRIPTION": "Správa kategórií",
+        "TITLE": "Správa kategórií"
+      },
+      "TRANSACTIONS_PAGE": {
+        "DESCRIPTION": " Správa transakcií",
+        "TITLE": "Správa transakcií"
+      }
+    },
+    "OVERVIEW_PAGE": {
+      "DESCRIPTION": "Prehľad",
+      "TITLE": "Prehľad"
+    }
+  },
+  "OVERVIEW_PAGE": {
+    "TRANSACTIONS_CHART": {
+      "TITLES": {
+        "AVG": "Transakcie - priemerná suma",
+        "SUM": "Transakcie - celková suma",
+        "COUNT": "Transakcie - počet"
+      },
+      "YEAR_FILTER": {
+        "NO_FILTER": "Rok"
+      },
+      "MONTH_FILTER": {
+        "NO_FILTER": "Mesiac"
+      },
+      "NO_TRANSACTIONS": "Nenašli sa žiadne transakcie",
+      "BUTTONS": {
+        "ADD": "Začnite pridaním transakcie"
+      }
+    },
+    "CATEGORIES_CHART": {
+      "TITLES": {
+        "SUM": "Kategórie - celková suma",
+        "COUNT": "Kategórie - počet"
+      },
+      "FROM_DATE_FILTER": {
+        "PLACEHOLDER": "Vyberte dátum od"
+      },
+      "TO_DATE_FILTER": {
+        "PLACEHOLDER": "Vyberte dátum do"
+      },
+      "NO_TRANSACTIONS": "Nenašli sa žiadne transakcie",
+      "BUTTONS": {
+        "ADD": "Začnite pridaním transakcie"
+      }
+    }
+  }
+}

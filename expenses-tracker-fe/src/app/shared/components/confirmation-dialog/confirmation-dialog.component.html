@@ -1,0 +1,21 @@
+<nb-card>
+  <nb-card-body>
+    <div
+      [innerHTML]="mainText | transloco:mainTextParams">
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button
+      nbButton
+      [status]="confirmButtonStatus"
+      (click)="onAnyButtonClick(true)">
+      {{ confirmButtonText | transloco }}
+    </button>
+    <button
+      nbButton
+      [status]="cancelButtonStatus"
+      (click)="onAnyButtonClick(false)">
+      {{ cancelButtonText | transloco }}
+    </button>
+  </nb-card-footer>
+</nb-card>

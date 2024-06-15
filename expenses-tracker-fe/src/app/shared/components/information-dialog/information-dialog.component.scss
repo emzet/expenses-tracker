@@ -1,0 +1,13 @@
+:host {
+  display: block;
+
+  nb-card-body ::ng-deep a {
+    text-decoration: none;
+  }
+
+  nb-card-footer {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+}

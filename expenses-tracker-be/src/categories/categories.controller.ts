@@ -1,7 +1,15 @@
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';
 import { CategoryEntity } from 'src/db/categories/category.entity';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorators';
 import { CategoryDto } from 'src/db/categories/dto/category.dto';
 
@@ -20,6 +28,16 @@ export class CategoriesController {
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   findAll(@GetCurrentUserId() userId: string) {
     return this.categoriesService.findAll(userId);
+  }
+
+  @Put(':id')
+  @ApiOkResponse({ type: CategoryEntity })
+  update(
+    @Param('id') id: string,
+    @GetCurrentUserId() userId: string,
+    @Body() categoryDto: CategoryDto,
+  ) {
+    return this.categoriesService.update(id, userId, categoryDto);
   }
 
   @Delete(':id')

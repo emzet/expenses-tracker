@@ -1,0 +1,6 @@
+<angular2-smart-table
+  [source]="source"
+  [settings]="(settings$ | async)!"
+  (edit)="onEditButtonClick($event)"
+  (delete)="onDeleteButtonClick($event)">
+</angular2-smart-table>

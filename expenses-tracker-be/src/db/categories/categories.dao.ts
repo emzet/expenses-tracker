@@ -34,11 +34,30 @@ export class CategoriesDao {
     });
   }
 
+  update(id: string, categoryDto: CategoryDto) {
+    return this.prisma.category.update({
+      where: {
+        id,
+      },
+      data: {
+        ...categoryDto,
+      },
+    });
+  }
+
   findOne(id: string) {
-    return this.prisma.category.findUnique({ where: { id } });
+    return this.prisma.category.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
   remove(id: string) {
-    return this.prisma.category.delete({ where: { id } });
+    return this.prisma.category.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
