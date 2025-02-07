@@ -1,5 +1,5 @@
 import { TranslocoPipe } from '@jsverse/transloco';
-import { NgTemplateOutlet, UpperCasePipe } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { NbButtonModule, NbCardModule, NbDialogRef, NbIconModule, NbInputModule } from '@nebular/theme';
@@ -13,7 +13,6 @@ import { Category, CategoryDto } from '@app/store/app.models';
   templateUrl: './category-form-dialog.component.html',
   styleUrl: './category-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     // directives
     NgTemplateOutlet,
@@ -24,8 +23,7 @@ import { Category, CategoryDto } from '@app/store/app.models';
     NbInputModule,
     ReactiveFormsModule,
     // pipes
-    TranslocoPipe,
-    UpperCasePipe
+    TranslocoPipe
   ]
 })
 export class CategoryFormDialogComponent implements OnInit {

@@ -54,27 +54,26 @@ interface TransactionTree {
 }
 
 @Component({
-  selector: 'expenses-tracker-transactions-chart',
-  templateUrl: './transactions-chart.component.html',
-  styleUrl: './transactions-chart.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // directives
-    BaseChartDirective,
-    NgClass,
-    RouterLink,
-    // modules
-    NbButtonModule,
-    NbCardModule,
-    NbSelectModule,
-    NbSpinnerModule,
-    ReactiveFormsModule,
-    // pipes
-    AsyncPipe,
-    TranslocoPipe,
-    UpperCasePipe
-  ]
+    selector: 'expenses-tracker-transactions-chart',
+    templateUrl: './transactions-chart.component.html',
+    styleUrl: './transactions-chart.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // directives
+        BaseChartDirective,
+        NgClass,
+        RouterLink,
+        // modules
+        NbButtonModule,
+        NbCardModule,
+        NbSelectModule,
+        NbSpinnerModule,
+        ReactiveFormsModule,
+        // pipes
+        AsyncPipe,
+        TranslocoPipe,
+        UpperCasePipe
+    ]
 })
 export class TransactionsChartComponent implements OnChanges, OnInit {
   readonly #destroyRef = inject(DestroyRef);

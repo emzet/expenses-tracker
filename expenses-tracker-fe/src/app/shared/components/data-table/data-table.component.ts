@@ -12,26 +12,25 @@ import { DataTableRowActions, DataTableRowData, DataTableSortDirections, DataTab
 
 
 @Component({
-  selector: 'expenses-tracker-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrl: './data-table.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // components
-    DataTablePaginationComponent,
-    // modules
-    CdkTableModule,
-    NbButtonModule,
-    NbIconModule,
-    // pipes
-    AsyncPipe,
-    RowClassesPipe,
-    TranslocoPipe,
-    UpperCasePipe,
-    // directives
-    NgClass
-  ]
+    selector: 'expenses-tracker-data-table',
+    templateUrl: './data-table.component.html',
+    styleUrl: './data-table.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // components
+        DataTablePaginationComponent,
+        // modules
+        CdkTableModule,
+        NbButtonModule,
+        NbIconModule,
+        // pipes
+        AsyncPipe,
+        RowClassesPipe,
+        TranslocoPipe,
+        UpperCasePipe,
+        // directives
+        NgClass
+    ]
 })
 export class DataTableComponent {
   @Input() rowActions: ReadonlyArray<DataTableRowActions> = [];

@@ -19,24 +19,23 @@ import { DataTableRowActions, DataTableRowData, DataTableSortQueryParams } from 
 
 
 @Component({
-  selector: 'expenses-tracker-transaction-list',
-  templateUrl: './transaction-list.component.html',
-  styleUrl: './transaction-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // components
-    DataTableComponent,
-    // modules
-    NbButtonModule,
-    NbIconModule,
-    NbInputModule,
-    NbSpinnerModule,
-    ReactiveFormsModule,
-    // pipes
-    AsyncPipe,
-    TranslocoPipe
-  ]
+    selector: 'expenses-tracker-transaction-list',
+    templateUrl: './transaction-list.component.html',
+    styleUrl: './transaction-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // components
+        DataTableComponent,
+        // modules
+        NbButtonModule,
+        NbIconModule,
+        NbInputModule,
+        NbSpinnerModule,
+        ReactiveFormsModule,
+        // pipes
+        AsyncPipe,
+        TranslocoPipe
+    ]
 })
 export class TransactionListComponent implements OnChanges {
   readonly #destroyRef = inject(DestroyRef);

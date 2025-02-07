@@ -10,18 +10,17 @@ import { translocoLangChanged$ } from '@app/shared/utils/transloco.utils';
 
 
 @Component({
-  selector: 'expenses-tracker-management-page',
-  templateUrl: './management-page.component.html',
-  styleUrl: './management-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // modules
-    NbCardModule,
-    NbRouteTabsetModule,
-    // pipes
-    AsyncPipe
-  ]
+    selector: 'expenses-tracker-management-page',
+    templateUrl: './management-page.component.html',
+    styleUrl: './management-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // modules
+        NbCardModule,
+        NbRouteTabsetModule,
+        // pipes
+        AsyncPipe
+    ]
 })
 export class ManagementPageComponent {
   readonly #translocoService = inject(TranslocoService);

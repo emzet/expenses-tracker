@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { NbButtonModule } from '@nebular/theme';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
@@ -9,12 +8,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
   templateUrl: './data-table-pagination.component.html',
   styleUrl: './data-table-pagination.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     // modules
-    NbButtonModule,
-    // directives
-    NgClass
+    NbButtonModule
   ]
 })
 export class DataTablePaginationComponent implements OnChanges {

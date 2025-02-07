@@ -5,18 +5,17 @@ import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core
 
 
 @Component({
-  selector: 'expenses-tracker-confirmation-dialog',
-  templateUrl: './confirmation-dialog.component.html',
-  styleUrl: './confirmation-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // modules
-    NbButtonModule,
-    NbCardModule,
-    // pipes
-    TranslocoPipe
-  ],
+    selector: 'expenses-tracker-confirmation-dialog',
+    templateUrl: './confirmation-dialog.component.html',
+    styleUrl: './confirmation-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // modules
+        NbButtonModule,
+        NbCardModule,
+        // pipes
+        TranslocoPipe
+    ]
 })
 export class ConfirmationDialogComponent {
   readonly #dialogRef = inject(NbDialogRef<ConfirmationDialogComponent>);

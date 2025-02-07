@@ -7,19 +7,18 @@ import { DEFAULT_LANG } from '@providers/transloco.options';
 
 
 @Component({
-  selector: 'expenses-tracker-language-selector',
-  templateUrl: './language-selector.component.html',
-  styleUrl: './language-selector.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // modules
-    NbButtonGroupModule,
-    NbButtonModule,
-    NbIconModule,
-    // pipes
-    UpperCasePipe
-  ]
+    selector: 'expenses-tracker-language-selector',
+    templateUrl: './language-selector.component.html',
+    styleUrl: './language-selector.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // modules
+        NbButtonGroupModule,
+        NbButtonModule,
+        NbIconModule,
+        // pipes
+        UpperCasePipe
+    ]
 })
 export class LanguageSelectorComponent {
   @Input({ required: true }) activeLanguage = DEFAULT_LANG;

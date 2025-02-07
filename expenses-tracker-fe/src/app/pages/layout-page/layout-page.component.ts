@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { RouterOutlet } from '@angular/router';
 import { AppStateModel } from '@app/store/app.state';
 import { Observable, combineLatest, map } from 'rxjs';
-import { AsyncPipe, UpperCasePipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NbAuthOAuth2JWTToken, NbAuthService, NbAuthToken } from '@nebular/auth';
 import { Translation, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
@@ -20,7 +20,6 @@ import {
 
 import { APP_PATHS } from '@app/app.routes';
 
-import { TextFormatPipe } from '@pipes/text-format.pipe';
 
 import { translocoLangChanged$ } from '@utils/transloco.utils';
 
@@ -38,7 +37,6 @@ import { APP_AUTHOR, APP_NAME, APP_VERSION } from '../../../main';
   templateUrl: './layout-page.component.html',
   styleUrls: ['./layout-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     // modules
     NbActionsModule,
@@ -50,9 +48,7 @@ import { APP_AUTHOR, APP_NAME, APP_VERSION } from '../../../main';
     NbUserModule,
     // pipes
     AsyncPipe,
-    TextFormatPipe,
     TranslocoPipe,
-    UpperCasePipe,
     // components
     RouterOutlet,
     LanguageSelectorComponent

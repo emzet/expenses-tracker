@@ -22,17 +22,16 @@ import { TransactionFormDialogComponent } from './transaction-form-dialog/transa
 
 
 @Component({
-  selector: 'expenses-tracker-management-transactions-page',
-  templateUrl: './management-transactions-page.component.html',
-  styleUrl: './management-transactions-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // components
-    TransactionListComponent,
-    // pipes
-    AsyncPipe
-  ]
+    selector: 'expenses-tracker-management-transactions-page',
+    templateUrl: './management-transactions-page.component.html',
+    styleUrl: './management-transactions-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // components
+        TransactionListComponent,
+        // pipes
+        AsyncPipe
+    ]
 })
 export class ManagementTransactionsPageComponent {
   readonly #store = inject(Store);

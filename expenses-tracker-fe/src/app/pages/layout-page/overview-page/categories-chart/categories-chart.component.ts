@@ -4,9 +4,9 @@ import { MaskitoDirective } from '@maskito/angular';
 import { isAfter, isBefore, isValid } from 'date-fns';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ChartConfiguration, ChartData, TooltipItem } from 'chart.js';
+import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { BehaviorSubject, Observable, combineLatest, map, startWith } from 'rxjs';
 import { Translation, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { AsyncPipe, NgClass, NgTemplateOutlet, UpperCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { NbAlertModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbComponentSize, NbDatepickerModule, NbInputModule, NbSpinnerModule } from '@nebular/theme';
 
@@ -26,7 +26,6 @@ import { QUERY_PARAMS_KEYS, QUERY_PARAMS_VALUES } from '@app/constants/query-par
   templateUrl: './categories-chart.component.html',
   styleUrl: './categories-chart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     // directives
     BaseChartDirective,
@@ -46,8 +45,7 @@ import { QUERY_PARAMS_KEYS, QUERY_PARAMS_VALUES } from '@app/constants/query-par
     ReactiveFormsModule,
     // pipes
     AsyncPipe,
-    TranslocoPipe,
-    UpperCasePipe
+    TranslocoPipe
   ]
 })
 export class CategoriesChartComponent implements OnInit {

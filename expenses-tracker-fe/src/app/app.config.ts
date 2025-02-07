@@ -25,7 +25,7 @@ import { titleStrategyProvider } from '@providers/title-strategy.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // provideExperimentalZonelessChangeDetection(),
+    provideExperimentalZonelessChangeDetection(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([
       httpApiInterceptor

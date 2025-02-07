@@ -17,29 +17,28 @@ import { Category, TransactionDto, TransactionType } from '@store/app.models';
 
 
 @Component({
-  selector: 'expenses-tracker-transaction-form-dialog',
-  templateUrl: './transaction-form-dialog.component.html',
-  styleUrl: './transaction-form-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // directives
-    NgTemplateOutlet,
-    MaskitoDirective,
-    // modules
-    NbAlertModule,
-    NbButtonModule,
-    NbCardModule,
-    NbDatepickerModule,
-    NbIconModule,
-    NbInputModule,
-    NbSelectModule,
-    ReactiveFormsModule,
-    // pipes
-    TextFormatPipe,
-    TranslocoPipe,
-    UpperCasePipe
-  ]
+    selector: 'expenses-tracker-transaction-form-dialog',
+    templateUrl: './transaction-form-dialog.component.html',
+    styleUrl: './transaction-form-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // directives
+        NgTemplateOutlet,
+        MaskitoDirective,
+        // modules
+        NbAlertModule,
+        NbButtonModule,
+        NbCardModule,
+        NbDatepickerModule,
+        NbIconModule,
+        NbInputModule,
+        NbSelectModule,
+        ReactiveFormsModule,
+        // pipes
+        TextFormatPipe,
+        TranslocoPipe,
+        UpperCasePipe
+    ]
 })
 export class TransactionFormDialogComponent implements OnInit {
   readonly #dialogRef = inject(NbDialogRef<TransactionFormDialogComponent>)

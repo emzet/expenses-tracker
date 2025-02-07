@@ -20,17 +20,16 @@ import { CategoryFormDialogComponent } from './category-form-dialog/category-for
 
 
 @Component({
-  selector: 'expenses-tracker-management-categories-page',
-  templateUrl: './management-categories-page.component.html',
-  styleUrl: './management-categories-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // components
-    CategoryListComponent,
-    // pipes
-    AsyncPipe
-  ]
+    selector: 'expenses-tracker-management-categories-page',
+    templateUrl: './management-categories-page.component.html',
+    styleUrl: './management-categories-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // components
+        CategoryListComponent,
+        // pipes
+        AsyncPipe
+    ]
 })
 export class ManagementCategoriesPageComponent {
   readonly #store = inject(Store);

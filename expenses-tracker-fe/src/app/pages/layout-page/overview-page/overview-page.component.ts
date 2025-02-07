@@ -14,20 +14,19 @@ import { TransactionsChartComponent } from './transactions-chart/transactions-ch
 
 
 @Component({
-  selector: 'expenses-tracker-overview-page',
-  templateUrl: './overview-page.component.html',
-  styleUrl: './overview-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    // components
-    CategoriesChartComponent,
-    TransactionsChartComponent,
-    // modules
-    NbCardModule,
-    // pipes
-    AsyncPipe
-  ]
+    selector: 'expenses-tracker-overview-page',
+    templateUrl: './overview-page.component.html',
+    styleUrl: './overview-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        // components
+        CategoriesChartComponent,
+        TransactionsChartComponent,
+        // modules
+        NbCardModule,
+        // pipes
+        AsyncPipe
+    ]
 })
 export class OverviewPageComponent {
   readonly #store = inject(Store);

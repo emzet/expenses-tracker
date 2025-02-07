@@ -1,5 +1,5 @@
+import { UpperCasePipe } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { AsyncPipe, UpperCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NbAlertModule, NbBadgeModule, NbButtonModule, NbIconModule, NbListModule, NbSpinnerModule, NbTagModule } from '@nebular/theme';
 
@@ -14,7 +14,6 @@ import { TextFormatPipe } from '@pipes/text-format.pipe';
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     // modules
     NbAlertModule,
@@ -25,7 +24,6 @@ import { TextFormatPipe } from '@pipes/text-format.pipe';
     NbTagModule,
     NbBadgeModule,
     // pipes
-    AsyncPipe,
     TextFormatPipe,
     TranslocoPipe,
     UpperCasePipe
