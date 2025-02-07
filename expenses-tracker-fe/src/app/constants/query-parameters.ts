@@ -1,5 +1,9 @@
 export const QUERY_PARAMS_KEYS = {
-  ID: 'id'
+  SEARCH: 'search',
+  ID: 'id',
+  PAGE: 'page',
+  SORT_COLUMN: 'sortColumn',
+  SORT_DIRECTION: 'sortDirection'
 } as const;
 
 export const QUERY_PARAMS_VALUES = {

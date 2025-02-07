@@ -1,11 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Store, Select } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
-import { ActivatedRoute } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { NbDialogService } from '@nebular/theme';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, first, map } from 'rxjs';
-import { NbActionsModule, NbButtonModule, NbDialogService, NbIconModule } from '@nebular/theme';
 
 import { APP_PATHS } from '@app/app.routes';
 import { QUERY_PARAMS_KEYS, QUERY_PARAMS_VALUES } from '@app/constants/query-parameters';
@@ -14,6 +13,7 @@ import { AppStateModel } from '@store/app.state';
 import { Category, TRANSACTION_TYPES, Transaction, TransactionDto } from '@store/app.models';
 import { CreateTransaction, DeleteTransaction, GetCategories, GetTransactions, UpdateTransaction } from '@store/app.actions';
 
+import { DataTableSortQueryParams } from '@components/data-table/data-table.models';
 import { ConfirmationDialogComponent } from '@components/confirmation-dialog/confirmation-dialog.component';
 
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
@@ -30,13 +30,8 @@ import { TransactionFormDialogComponent } from './transaction-form-dialog/transa
   imports: [
     // components
     TransactionListComponent,
-    // modules
-    NbActionsModule,
-    NbButtonModule,
-    NbIconModule,
     // pipes
-    AsyncPipe,
-    TranslocoPipe
+    AsyncPipe
   ]
 })
 export class ManagementTransactionsPageComponent {
@@ -47,10 +42,11 @@ export class ManagementTransactionsPageComponent {
   @Select((state: { app: AppStateModel }) => state.app.categories) categories$!: Observable<AppStateModel['categories']>;
   @Select((state: { app: AppStateModel }) => state.app.transactions) transactions$!: Observable<AppStateModel['transactions']>;
 
+  readonly TRANSACTION_TYPES = TRANSACTION_TYPES;
   readonly #anyDialogOpened$ = new BehaviorSubject(false);
   readonly anyDialogOpened$ = this.#anyDialogOpened$.asObservable();
 
-  readonly TRANSACTION_TYPES = TRANSACTION_TYPES;
+  readonly dataTableQueryParams = this.#activatedRoute.snapshot.queryParams;
 
   constructor() {
     this.#store.dispatch([
@@ -78,15 +74,21 @@ export class ManagementTransactionsPageComponent {
     .subscribe({
       next: ([categories, transaction]: readonly [ReadonlyArray<Category>, Transaction | undefined]) => transaction
         ? this.onTransactionEdit(categories, transaction)
-        : this.onAddButtonClick(categories)
+        : this.onTransactionAdd(categories)
     });
   }
 
-  onAddButtonClick(categories: ReadonlyArray<Category>): void {
+  onReloadButtonClick(): void {
+    this.#store.dispatch(new GetTransactions(true));
+  }
+
+  onTransactionAdd(categories: ReadonlyArray<Category>): void {
     this.#anyDialogOpened$.next(true);
 
     if (categories.length) {
-      this.#addIdToUrl();
+      this.#updateQueryParams({
+        [QUERY_PARAMS_KEYS.ID]: QUERY_PARAMS_VALUES.NEW
+      });
 
       this.#dialogService
         .open(TransactionFormDialogComponent, {
@@ -100,7 +102,9 @@ export class ManagementTransactionsPageComponent {
           next: (transactionDto: TransactionDto) => {
             this.#anyDialogOpened$.next(false);
 
-            this.#removeIdFromUrl();
+            this.#updateQueryParams({
+              [QUERY_PARAMS_KEYS.ID]: null
+            });
 
             if (transactionDto) {
               this.#store.dispatch(new CreateTransaction(transactionDto))
@@ -131,10 +135,6 @@ export class ManagementTransactionsPageComponent {
     }
   }
 
-  onReloadButtonClick(): void {
-    this.#store.dispatch(new GetTransactions(true));
-  }
-
   onTransactionEdit(categories: ReadonlyArray<Category>, { id, ...existingTransaction }: Transaction): void {
     // if (isDefault) {
     //   return;
@@ -142,7 +142,9 @@ export class ManagementTransactionsPageComponent {
 
     this.#anyDialogOpened$.next(true);
 
-    this.#addIdToUrl(id);
+    this.#updateQueryParams({
+      [QUERY_PARAMS_KEYS.ID]: id
+    });
 
     this.#dialogService
       .open(TransactionFormDialogComponent, {
@@ -157,7 +159,9 @@ export class ManagementTransactionsPageComponent {
         next: (transactionDto: TransactionDto) => {
           this.#anyDialogOpened$.next(false);
 
-          this.#removeIdFromUrl();
+          this.#updateQueryParams({
+            [QUERY_PARAMS_KEYS.ID]: null
+          });
 
           if (transactionDto) {
             this.#store.dispatch(new UpdateTransaction(id, transactionDto))
@@ -195,15 +199,29 @@ export class ManagementTransactionsPageComponent {
       });
   }
 
-  #addIdToUrl(value: string = QUERY_PARAMS_VALUES.NEW): void {
-    this.#store.dispatch(new Navigate([], { [QUERY_PARAMS_KEYS.ID]: value }, {
-      relativeTo: this.#activatedRoute,
-      replaceUrl: true
-    }));
+  onPageChange(pageNumber: number): void {
+    this.#updateQueryParams({
+      [QUERY_PARAMS_KEYS.PAGE]: pageNumber
+    });
   }
 
-  #removeIdFromUrl(): void {
-    this.#store.dispatch(new Navigate([], {}, {
+  onSortChange({ column, direction }: DataTableSortQueryParams): void {
+    this.#updateQueryParams({
+      [QUERY_PARAMS_KEYS.SORT_COLUMN]: column,
+      [QUERY_PARAMS_KEYS.SORT_DIRECTION]: direction
+    });
+  }
+
+  onSearchChange(value: string): void {
+    this.#updateQueryParams({
+      [QUERY_PARAMS_KEYS.SEARCH]: value
+    });
+  }
+
+  #updateQueryParams(queryParams: Params): void {
+    this.#store.dispatch(new Navigate([], queryParams, {
+      preserveFragment: true,
+      queryParamsHandling: 'merge',
       relativeTo: this.#activatedRoute,
       replaceUrl: true
     }));

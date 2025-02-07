@@ -1,0 +1,50 @@
+@if (pagesNumbers.length) {
+  <ul>
+    <li>
+      <button
+        nbButton
+        outline
+        [disabled]="currentPage === 0"
+        (click)="onPageClick(0)">
+        &laquo;
+      </button>
+    </li>
+    <li>
+      <button
+        nbButton
+        outline
+        [disabled]="currentPage === 0"
+        (click)="onPageClick(currentPage - 1)">
+        &lt;
+      </button>
+    </li>
+    @for (pageNumber of pagesNumbers; track $index) {
+      <li>
+        <button
+          nbButton
+          [status]="currentPage === pageNumber ? 'primary' : 'basic'"
+          (click)="onPageClick(pageNumber)">
+          {{ pageNumber + 1 }}
+        </button>
+      </li>
+    }
+    <li>
+      <button
+        nbButton
+        outline
+        [disabled]="currentPage === this.pageCount! - 1"
+        (click)="onPageClick(currentPage + 1)">
+        &gt;
+      </button>
+    </li>
+    <li>
+      <button
+        nbButton
+        outline
+        [disabled]="currentPage === this.pageCount! - 1"
+        (click)="onPageClick(this.pageCount! - 1)">
+        &raquo;
+      </button>
+    </li>
+  </ul>
+}

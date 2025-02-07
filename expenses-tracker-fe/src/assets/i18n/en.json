@@ -151,6 +151,9 @@
         },
         "NO_CATEGORIES": "No categories found. Please add any category first."
       },
+      "SEARCH": {
+        "PLACEHOLDER": "Search"
+      },
       "TABLE": {
         "COLUMNS": {
           "ACTIONS": "Actions",

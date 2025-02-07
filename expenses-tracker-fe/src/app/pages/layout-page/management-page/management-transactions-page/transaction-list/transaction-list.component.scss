@@ -1,51 +1,25 @@
 :host {
   display: block;
 
-  ::ng-deep .expense-row {
-    color: var(--color-danger-default);
+  .actions {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+
+    &.margin {
+      margin: 36px 0;
+    }
   }
 
-  ::ng-deep .income-row {
-    color: var(--color-success-700);
-  }
-
-  ::ng-deep .text-right {
+  ::ng-deep td.cdk-column-amount {
     text-align: right;
   }
 
-  ::ng-deep .angular2-smart-row  {
-    border-bottom: 1px solid var(--color-basic-default);
-
-    &:last-child {
-      border-bottom: 0;
-    }
+  ::ng-deep tr.type-income {
+    color: var(--color-success-700);
   }
 
-  ::ng-deep angular2-smart-table-pager {
-    border-radius: 4px;
-    justify-content: center;
-    margin-top: 24px;
-
-    nav {
-      ul {
-        margin: 0 !important;
-
-        li {
-          border: 1px solid var(--color-basic-default);
-          padding: 8px;
-          text-align: center;
-          width: 45px;
-
-          a:hover {
-            text-decoration: none;
-          }
-
-          &.active {
-            background-color: var(--color-info-default);
-            color: #fff;
-          }
-        }
-      }
-    }
+  ::ng-deep tr.type-expense {
+    color: var(--color-danger-700);
   }
 }

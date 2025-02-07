@@ -1,33 +1,21 @@
-@if ({ categories: categories$ | async, transactions: transactions$ | async }; as obs) {
+@if ({
+  categories: categories$ | async,
+  transactions: transactions$ | async
+}; as obs) {
   @if (obs.categories && obs.transactions) {
-    <div class="actions">
-      <button
-        nbButton
-        status="success"
-        [disabled]="anyDialogOpened$ | async"
-        (click)="onAddButtonClick(obs.categories.data || [])">
-        <nb-icon
-          icon="plus-outline">
-        </nb-icon>
-        {{ 'MANAGEMENT.TRANSACTIONS_PAGE.ACTION_BUTTONS.ADD' | transloco }}
-      </button>
-      <button
-        nbButton
-        status="basic"
-        [disabled]="obs.transactions.loader"
-        (click)="onReloadButtonClick()">
-        <nb-icon
-          icon="refresh-outline">
-        </nb-icon>
-        {{ 'MANAGEMENT.TRANSACTIONS_PAGE.ACTION_BUTTONS.RELOAD' | transloco }}
-      </button>
-    </div>
     <expenses-tracker-transaction-list
+      [isLoading]="obs.categories.loader || obs.transactions.loader"
       [categories]="obs.categories.data || []"
       [transactions]="obs.transactions.data || []"
-      [isLoading]="obs.categories.loader || obs.transactions.loader"
+      [queryParams]="dataTableQueryParams"
+      [isDialogOpened]="!!(anyDialogOpened$ | async)"
+      (reload)="onReloadButtonClick()"
+      (transactionAdd)="onTransactionAdd(obs.categories.data || [])"
       (transactionEdit)="onTransactionEdit(obs.categories.data || [], $event)"
-      (transactionRemove)="onTransactionRemove($event)">
+      (transactionRemove)="onTransactionRemove($event)"
+      (searchChange)="onSearchChange($event)"
+      (pageChange)="onPageChange($event)"
+      (sortChange)="onSortChange($event)">
     </expenses-tracker-transaction-list>
   }
 }

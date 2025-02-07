@@ -30,11 +30,17 @@ export class ManagementPageComponent {
     map((translation: Translation) => ([
       {
         title: translation['MANAGEMENT.TABS.TRANSACTIONS'],
-        route: `/${APP_PATHS.MANAGEMENT.PATH}/${APP_PATHS.MANAGEMENT.TRANSACTIONS}`
+        route: `/${APP_PATHS.MANAGEMENT.PATH}/${APP_PATHS.MANAGEMENT.TRANSACTIONS}`,
+        activeLinkOptions: {
+          exact: false
+        }
       },
       {
         title: translation['MANAGEMENT.TABS.CATEGORIES'],
-        route: `/${APP_PATHS.MANAGEMENT.PATH}/${APP_PATHS.MANAGEMENT.CATEGORIES}`
+        route: `/${APP_PATHS.MANAGEMENT.PATH}/${APP_PATHS.MANAGEMENT.CATEGORIES}`,
+        activeLinkOptions: {
+          exact: false
+        }
       }
     ]))
   );
